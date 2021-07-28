@@ -1,0 +1,27 @@
+<div draggable="true" ngClass="{{dragAreaClass}}" *ngIf="!isImageDropeed">
+  Drag files here
+</div>
+<div class="w-100" *ngIf="isImageDropeed && !isImageSaved">
+  <div class="float-left">
+    <div class="w-500p">
+      <image-cropper [imageChangedEvent]="imageChangedEvent" (imageCropped)="imageCropped($event)"
+        [maintainAspectRatio]="true" [aspectRatio]="1/1" format="png">
+      </image-cropper>
+    </div>
+  </div>
+  <div class="float-left pl-10">
+    <button class="save-btn" (click)="isImageSaved=true">Upload</button>
+    <button class="cancel-btn ml-10" (click)="isImageDropeed=false">Cancel</button><br />
+    <img class="w-300p pt-10" [src]="croppedImage" />
+  </div>
+</div>
+<div *ngIf="isImageDropeed && isImageSaved">
+  <div class="w-300p">
+    <img class="w-300p pt-10" [src]="croppedImage" />
+    <div #container>{{fileName | textEllipse: container.offsetWidth:null}}</div>
+  </div>
+  <br />
+  <div #container2>{{ellipseEgString | textEllipse: container2.offsetWidth:null}}</div>
+  <br />
+  <div #container1 class="w-300p">{{ellipseEgString | textEllipse: container1.offsetWidth:null}}</div>
+</div>
